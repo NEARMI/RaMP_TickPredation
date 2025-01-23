@@ -1,0 +1,57 @@
+---
+title: "REPO_template ReadMe"
+output: github_document
+always_allow_html: yes  
+date: "Last compiled on `r format(Sys.time(), '%d %B, %Y')`"
+params:
+  maintainer1: Riley Mummah
+  maintainer_email1: rmummah@usgs.gov
+
+---
+
+<!-- README.md is generated from README.RMD; knit at end -->
+```{r , include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+### NEARMI Repository Template
+
+This repository contains the file structure and guidance for annotation for repositories within the NEARMI GitHub organization.
+
+This template was last updated by [`r params$maintainer1`](mailto: `r params$maintainer_email1`) and on `r format(Sys.time(), '%d %B, %Y')`.
+
+
+### Example figure
+
+If you'd like to include a figure, you can do so using the code below. To turn off the code, change `echo = TRUE` to `echo = FALSE`.
+
+```{r, echo = TRUE}
+knitr::include_graphics("figures/MA-salamanders.jpg")
+```
+
+
+### Repositiory Structure
+- `data/` contains all data used for XX
+- `code/` contains all code for data processing and analysis
+- `functions/` contains all R functions for ZZ
+- `models/` contains all model scripts for XX
+- `output/` contains compiled reports and figures
+
+Include a README.Rmd in each folder that outlines all files in the folder.
+
+We suggest also including all parameter and function information in the README to orient users to the repository and analysis.
+
+### Parameter definitions
+
+
+| Model Term | Equation notation | Definition| 
+|--------------------| --------------------| ----------|
+| alpha              | $\alpha$            | intercept |
+| B                  | $\beta$             | slope     |
+
+
+
+### Functions
+
+f(x) ~ $\alpha$ + $\beta$*y
+

@@ -1,0 +1,30 @@
+---
+title: "Functions README"
+output: github_document
+always_allow_html: yes  
+date: "Last compiled on `r format(Sys.time(), '%d %B, %Y')`"
+params:
+  maintainer1: NAME HERE
+  maintainer_email1: EMAIL@HERE
+
+---
+
+
+<!-- README.md is generated from README.RMD; knit at end -->
+```{r , include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+This folder should contain all functions written for your analysis.
+
+**We suggest including the following to direct users through your scripts:**
+
+This folder contains the following files:
+
+- Name-of-file.R
+  - make_loop()
+    - Makes a for-loop
+  - if_else()
+    - Applies an if-else function
+- Repeat for additional files and functions
+

@@ -1,0 +1,29 @@
+---
+title: "Scripts README"
+output: github_document
+always_allow_html: yes  
+date: "Last compiled on `r format(Sys.time(), '%d %B, %Y')`"
+params:
+  maintainer1: NAME HERE
+  maintainer_email1: EMAIL@HERE
+
+---
+
+
+<!-- README.md is generated from README.RMD; knit at end -->
+```{r , include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+This folder should contain all of your R scripts for your analysis.
+
+**We suggest including the following to direct users through your scripts:**
+
+This folder contains the following files:
+
+- Name-of-file.R
+  - Purpose: To XX from YY
+  - Inputs: List input file names here
+  - Outputs: List output file names or figures/products here
+- Repeat for additional files
+

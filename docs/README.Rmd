@@ -1,0 +1,25 @@
+---
+title: "Docs README"
+output: github_document
+always_allow_html: yes  
+date: "Last compiled on `r format(Sys.time(), '%d %B, %Y')`"
+params:
+  maintainer1: NAME HERE
+  maintainer_email1: EMAIL@HERE
+
+---
+
+
+<!-- README.md is generated from README.RMD; knit at end -->
+```{r , include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+In general, analyses and visualizations should be saved in the docs file, rendered as a .Rmd or .qmd files. 
+
+This folder contains the following files:
+
+- JAGS_model.txt
+  - Called by: script_template.R
+- Repeat for additional files
+
