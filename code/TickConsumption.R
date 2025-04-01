@@ -24,7 +24,7 @@ library(dplyr)
 #########################
 # Note the format of the data from experimental trials.
 # For each salamander mesocosm, reformat the daily count data to 
-# create individual prey survival time datatable.
+# create individual prey survival time datatable.  
 prey<-read.csv(file = "data/reformattedtrial3.csv",header=TRUE)
 #rename sal -> cluster  for use in riskRegression package
 prey<-rename(prey,cluster = sal)
