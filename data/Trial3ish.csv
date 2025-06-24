@@ -1,0 +1,41 @@
+sal,Rx,prey#,Eaten_day,outcome
+19,2x Complex,1,2,1
+19,2x Complex,2,2,1
+19,2x Complex,3,2,1
+19,2x Complex,4,2,1
+19,2x Complex,5,2,1
+19,2x Complex,6,2,1
+19,2x Complex,7,6,1
+19,2x Complex,8,6,1
+19,2x Complex,9,6,1
+19,2x Complex,10,6,1
+23,Complex,1,2,1
+23,Complex,2,2,1
+23,Complex,3,2,1
+23,Complex,4,2,1
+23,Complex,5,2,1
+23,Complex,6,2,1
+23,Complex,7,2,1
+23,Complex,8,2,1
+23,Complex,9,6,1
+23,Complex,10,7,1
+28,2x Complex,1,2,1
+28,2x Complex,2,2,1
+28,2x Complex,3,2,1
+28,2x Complex,4,5,1
+28,2x Complex,5,5,1
+28,2x Complex,6,10,0
+28,2x Complex,7,10,0
+28,2x Complex,8,10,0
+28,2x Complex,9,10,0
+28,2x Complex,10,10,0
+47,Complex,1,1,1
+47,Complex,2,1,1
+47,Complex,3,1,1
+47,Complex,4,2,1
+47,Complex,5,2,1
+47,Complex,6,2,1
+47,Complex,7,2,1
+47,Complex,8,3,1
+47,Complex,9,3,1
+47,Complex,10,5,1
