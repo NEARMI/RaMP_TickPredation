@@ -29,7 +29,7 @@ library(dplyr)
 # Note the format of the data from experimental trials.
 # For each salamander mesocosm, reformat the daily count data to 
 # create individual prey survival time datatable. 
-setwd("~/Git/RaMP_TickPredation/code")
+setwd("~/Git/RaMP_TickPredation/data")
 prey<-read.csv(file = "Trial5_Fly_TreatmentCSV.csv",header=TRUE)
 #rename sal -> cluster  for use in riskRegression package
 prey<-rename(prey,cluster = sal)
@@ -91,7 +91,7 @@ plot(adjsurv.sals.bs, conf_int=TRUE, use_boot=TRUE, median_surv_lines=TRUE, cust
 # Note the format of the data from experimental trials.
 # For each salamander mesocosm, reformat the daily count data to 
 # create individual prey survival time datatable. 
-setwd("~/Git/RaMP_TickPredation/code")
+setwd("~/Git/RaMP_TickPredation/data")
 prey<-read.csv(file = "Trial5_Deer_TreatmentCSV.csv",header=TRUE)
 #rename sal -> cluster  for use in riskRegression package
 prey<-rename(prey,cluster = sal)
@@ -149,7 +149,7 @@ plot(adjsurv.sals.bs, conf_int=TRUE, use_boot=TRUE, median_surv_lines=TRUE, cust
 # Note the format of the data from experimental trials.
 # For each salamander mesocosm, reformat the daily count data to 
 # create individual prey survival time datatable. 
-setwd("~/Git/RaMP_TickPredation/code")
+setwd("~/Git/RaMP_TickPredation/data")
 prey<-read.csv(file = "Trial6_Nymph_TreatmentCSV.csv",header=TRUE)
 #rename sal -> cluster  for use in riskRegression package
 prey<-rename(prey,cluster = sal)
@@ -209,7 +209,7 @@ plot(adjsurv.sals.bs, conf_int=TRUE, use_boot=TRUE, median_surv_lines=TRUE, cust
 # Note the format of the data from experimental trials.
 # For each salamander mesocosm, reformat the daily count data to 
 # create individual prey survival time datatable. 
-setwd("~/Git/RaMP_TickPredation/code")
+setwd("~/Git/RaMP_TickPredation/data")
 prey<-read.csv(file = "Trial5_DogAdult_TreatmentCSV.csv",header=TRUE)
 #rename sal -> cluster  for use in riskRegression package
 prey<-rename(prey,cluster = sal)
@@ -272,7 +272,7 @@ plot(adjsurv.sals.bs, conf_int=TRUE, use_boot=TRUE, median_surv_lines=TRUE, cust
 # Note the format of the data from experimental trials.
 # For each salamander mesocosm, reformat the daily count data to 
 # create individual prey survival time datatable. 
-setwd("~/Git/RaMP_TickPredation/code")
+setwd("~/Git/RaMP_TickPredation/data")
 prey<-read.csv(file = "AllData.csv",header=TRUE)
 #rename sal -> cluster  for use in riskRegression package
 prey<-rename(prey,cluster = sal)
@@ -330,11 +330,12 @@ plot(adjsurv.sals.bs, conf_int=TRUE, use_boot=TRUE, median_surv_lines=TRUE, cust
 # Note the format of the data from experimental trials.
 # For each salamander mesocosm, reformat the daily count data to 
 # create individual prey survival time datatable. 
-setwd("~/Git/RaMP_TickPredation")
-prey<-read.csv(file = "data/DeerAdult_DogNymph.csv",header=TRUE)
+setwd("~/Git/RaMP_TickPredation/data")
+prey<-read.csv(file = "DeerDog_preyfactor.csv",header=TRUE)
 #rename sal -> cluster  for use in riskRegression package
 prey<-rename(prey,cluster = sal)
-prey$Rx<-as.factor(prey$Rx) #specify as factor
+prey$Rx<-as.factor(prey$Rx)
+prey$Sp<-as.factor(prey$Sp)#specify as factor
 ########################
 #2. survival analysis
 ########################
@@ -344,7 +345,7 @@ prey$Rx<-as.factor(prey$Rx) #specify as factor
 (s1 <- survfit(Surv(Eaten_day,outcome) ~ Rx+cluster, data = prey))
 
 #plot the survival curves
-survfit2(Surv(Eaten_day,outcome) ~ Rx+cluster, data = prey) %>% 
+survfit2(Surv(Eaten_day,outcome) ~ Rx+Sp+cluster, data = prey) %>% 
   ggsurvfit() +
   labs(
     x = "Days",
@@ -353,10 +354,10 @@ survfit2(Surv(Eaten_day,outcome) ~ Rx+cluster, data = prey) %>%
 
 ### Cox proportional hazards model 
 #mixed effects cox ph model (random intercept for each salamander)
-(coxmod.me<-coxme(Surv(Eaten_day,outcome) ~ Rx + (1|cluster), data = prey))
+(coxmod.me<-coxme(Surv(Eaten_day,outcome) ~ Rx + Sp + (1|cluster), data = prey))
 
 #same as above but using frailty model form
-(coxmod.frail<-coxph(Surv(Eaten_day,outcome) ~ Rx + frailty(cluster), data = prey))
+(coxmod.frail<-coxph(Surv(Eaten_day,outcome) ~ Rx + Sp + frailty(cluster), data = prey))
 summary(coxmod.frail) #exp(coef) is the Hazard Ratio for a covariate
 #########################
 #3. Plot survival curve by treatment
@@ -367,7 +368,7 @@ predict_fun <- function(...) {
 
 # bootstrap confidence intervals using adjustedCurves package
 adjsurv.sals.bs <- adjustedsurv(data=prey,
-                                variable="Rx",
+                                variable= c("Rx", "Sp"),  #not sure how to add Sp into this part of the model
                                 ev_time="Eaten_day",
                                 event="outcome",
                                 method="direct",
@@ -376,7 +377,7 @@ adjsurv.sals.bs <- adjustedsurv(data=prey,
                                 outcome_model=coxmod.frail,
                                 predict_fun=predict_fun)
 #now show the plot
-plot(adjsurv.sals.bs, conf_int=TRUE, use_boot=TRUE, median_surv_lines=TRUE, custom_colors=c("darkgray", "#0072B2", "#F0E442", "#D55E00"))+labs(y= "Prey Survival", x = "Days") 
+plot(adjsurv.sals.bs, conf_int=TRUE, use_boot=TRUE, median_surv_lines=TRUE)+labs(y= "Prey Survival", x = "Days") 
 
 
 
