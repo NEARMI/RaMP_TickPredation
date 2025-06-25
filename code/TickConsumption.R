@@ -388,8 +388,7 @@ prey<-rename(prey,cluster = sal)
 prey$Rx<-as.factor(prey$Rx)
 prey$Sp<-as.factor(prey$Sp)
 
-data("prey")
-res.cox <- coxph(Surv(Eaten_day,outcome) ~ Rx + Sp, data=prey)
+res.cox <- coxph(Surv(Eaten_day,outcome) ~  Sp + frailty(cluster), data = prey)
 summary(res.cox)
 
 # Plot the baseline survival function
@@ -401,12 +400,34 @@ Rx_Sp_df <- with(prey,
                           Sp = c("I. scapularis (Adult)", "D. variabilis (Nymph)")  
                )
 )
-Rx_Sp_df
+Rx_Sp_df$Sp<-as.factor(Rx_Sp_df$Sp)
+
 
 # Survival curves
-fit <- survfit(res.cox, data = Rx_Sp_df)
-ggsurvplot(fit, conf.int = TRUE, legend.labs=c("0x", "1x", "2x", "3x", "I. scapularis (Adult)", "D. variabilis (Nymph)"),
+fit <- survfit(res.cox, data = prey)
+ggsurvplot(fit, conf.int = TRUE, 
            ggtheme = theme_minimal())
 
+
+
+######### Plotting #########
+#using survminer package
+library("survminer")
+library("survival")
+# Fit cox ph model - no frailty term
+res.cox<-coxph(Surv(Eaten_day,outcome) ~ Rx + Sp , data = prey)
+
+# Create the new data  
+Rx_Sp_df <- with(prey,
+                 data.frame(Rx = c("0x", "1x", "2x", "3x"), 
+                            Sp = c("I. scapularis (Adult)", "D. variabilis (Nymph)")  
+                 )
+)
+Rx_Sp_df$Sp<-as.factor(Rx_Sp_df$Sp)
+
+# Survival curves with new data
+fit <- survfit(res.cox, newdata = Rx_Sp_df)
+ggsurvplot(fit, data=lung, conf.int = TRUE,  
+           surv.median.line = "hv", )
 
 
