@@ -369,7 +369,7 @@ predict_fun <- function(...) {
 
 # bootstrap confidence intervals using adjustedCurves package
 adjsurv.sals.bs <- adjustedsurv(data=prey,
-                                variable= c("Rx", "Sp"),  #not sure how to add Sp into this part of the model
+                                variable= c("Rx", "Sp"),  #not sure how to add Sp into this part of the model may need a different model (see below)
                                 ev_time="Eaten_day",
                                 event="outcome",
                                 method="direct",
@@ -388,7 +388,8 @@ prey<-rename(prey,cluster = sal)
 prey$Rx<-as.factor(prey$Rx)
 prey$Sp<-as.factor(prey$Sp)
 
-res.cox <- coxph(Surv(Eaten_day,outcome) ~  Sp + frailty(cluster), data = prey)
+data("prey")
+res.cox <- coxph(Surv(Eaten_day,outcome) ~ Rx + Sp, data=prey)
 summary(res.cox)
 
 # Plot the baseline survival function
@@ -396,38 +397,20 @@ ggsurvplot(survfit(res.cox, data=prey), palette = "#0072B2")
 
 # Create the new data  
 Rx_Sp_df <- with(prey,
-               data.frame(Rx = c("0x", "1x", "2x", "3x"), 
-                          Sp = c("I. scapularis (Adult)", "D. variabilis (Nymph)")  
+               data.frame(Rx = c(1, 2, 3, 4),                           #tried ("0x", "1x", "2x", "3x")
+                          Sp = c(1, 2)                                   #tried ("I. scapularis (Adult)", "D. variabilis (Nymph)")
                )
 )
-Rx_Sp_df$Sp<-as.factor(Rx_Sp_df$Sp)
+Rx_Sp_df
 
+#Rx and Sp as a factor
+Rx_Sp_df$Rx<-as.factor(Rx_Sp_df$Rx)
+Rx_Sp_df$Sp<-as.factor(Rx_Sp_df$Sp)
 
 # Survival curves
-fit <- survfit(res.cox, data = prey)
-ggsurvplot(fit, conf.int = TRUE, 
+fit <- survfit(res.cox, data=Rx_Sp_df)
+ggsurvplot(fit, conf.int = TRUE, legend.labs=c("0x", "1x", "2x", "3x", "I. scapularis (Adult)", "D. variabilis (Nymph)"),
            ggtheme = theme_minimal())
 
-
-
-######### Plotting #########
-#using survminer package
-library("survminer")
-library("survival")
-# Fit cox ph model - no frailty term
-res.cox<-coxph(Surv(Eaten_day,outcome) ~ Rx + Sp , data = prey)
-
-# Create the new data  
-Rx_Sp_df <- with(prey,
-                 data.frame(Rx = c("0x", "1x", "2x", "3x"), 
-                            Sp = c("I. scapularis (Adult)", "D. variabilis (Nymph)")  
-                 )
-)
-Rx_Sp_df$Sp<-as.factor(Rx_Sp_df$Sp)
-
-# Survival curves with new data
-fit <- survfit(res.cox, newdata = Rx_Sp_df)
-ggsurvplot(fit, data=lung, conf.int = TRUE,  
-           surv.median.line = "hv", )
 
 
