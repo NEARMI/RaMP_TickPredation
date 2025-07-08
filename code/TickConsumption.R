@@ -492,7 +492,7 @@ ggsurvplot(fit, data=Rx_Sp_df, conf.int = TRUE,
 
 
 
-###################Plot the results##########################
+###################Plot Median Surv Time results##########################
 # library
 library(ggplot2)
 
@@ -506,7 +506,7 @@ head(medsurv)
 
 # basic scatterplot
 ggplot(medsurv, aes(x=Treatment, y=MedianSurvTime, color=Prey)) + 
-  geom_point(size=3) +
+  geom_jitter(size=3, width = 0.35, height = 0.35) +
   geom_smooth(method=lm, color="black") + 
   ylab("Median survival time (days)") +
   xlab("Stems/m^2") +
