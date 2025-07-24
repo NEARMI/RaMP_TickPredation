@@ -151,7 +151,7 @@ plot(adjsurv.sals.bs, conf_int=TRUE, use_boot=TRUE, median_surv_lines=TRUE, cust
 # For each salamander mesocosm, reformat the daily count data to 
 # create individual prey survival time datatable. 
 setwd("~/Git/RaMP_TickPredation/data")
-prey<-read.csv(file = "Trial6_Nymph_TreatmentCSV.csv",header=TRUE)
+prey<-read.csv(file = "DogNymph_ALLCOMBINED.csv",header=TRUE)
 #rename sal -> cluster  for use in riskRegression package
 prey<-rename(prey,cluster = sal)
 prey$Rx<-as.factor(prey$Rx) #specify as factor

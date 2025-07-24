@@ -1,14 +1,14 @@
-Prey group,Treatment,posexpcoef,negexpcoef,lower,upper,MedianSurvTime
-D. melanogaster,0,0,0,0,0,1
-D. melanogaster,120.8,0.8847,1.1303,0.714,1.096,1
-D. melanogaster,241.7,1.2013,0.8324,0.688,2.097,1
-D. melanogaster,362.5,0.8028,1.2457,0.5368,1.201,1
-I. scapularis (Adult),120.8,0,0,0,0,1
-I. scapularis (Adult),241.7,0.3552,2.816,0.1842,0.6846,3
-I. scapularis (Adult),362.5,0.7075,1.413,0.3561,1.4057,1
-D. variabilis (Nymph),0,0,0,0,0,3
-D. variabilis (Nymph),201.4,0.6883,1.453,0.4586,1.033,8
-D. variabilis (Nymph),302.1,0.7525,1.329,0.5027,1.127,6
-D. variabilis (Adult),120.8,0,0,0,0,7
-D. variabilis (Adult),241.7,1.1794,0.8479,0.14286,9.736,5
-D. variabilis (Adult),362.5,0.4717,2.12,0.07734,2.877,13
+Prey group,Treatment,MedianSurvTime,SD
+D. melanogaster,0,1,0.18700392
+D. melanogaster,120.8,1,0.18700392
+D. melanogaster,241.7,1,0.18700392
+D. melanogaster,362.5,1,0.18700392
+I. scapularis (Adult),120.8,1,0.28212404
+I. scapularis (Adult),241.7,3,0.28212404
+I. scapularis (Adult),362.5,1,0.28212404
+D. variabilis (Nymph),0,3,0.080305649
+D. variabilis (Nymph),201.4,8,0.080305649
+D. variabilis (Nymph),302.1,6,0.080305649
+D. variabilis (Adult),120.8,7,0.8262855
+D. variabilis (Adult),241.7,5,0.8262855
+D. variabilis (Adult),362.5,13,0.8262855
