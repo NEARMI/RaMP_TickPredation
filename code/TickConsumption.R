@@ -6,7 +6,7 @@
 ## Written by ehgrant
 ## Questions: ehgrant at usgs dot gov
 
-install.packages(c("survminer"))
+install.packages(c("ggplot2"))
 ####################
 #0. Preliminaries 
 # load libraries
@@ -21,6 +21,8 @@ library(rms) #needed in adjustedCurves
 library(pammtools) #needed in adjustedCurves
 library(dplyr)
 library(survminer)
+library(ggplot2)
+library(survMisc)
 
 
 ##################***FRUIT FLY SURVIVAL***#######################
@@ -31,6 +33,7 @@ library(survminer)
 # For each salamander mesocosm, reformat the daily count data to 
 # create individual prey survival time datatable. 
 setwd("~/Git/RaMP_TickPredation/data")
+setwd("C:\\Users\\eedwards\\DOI\\GS-PWRC-NEARMI - General\\RaMP_TickPredation\\RaMP_TickPredation_Git\\data")
 prey<-read.csv(file = "Trial5_Fly_TreatmentCSV.csv",header=TRUE)
 #rename sal -> cluster  for use in riskRegression package
 prey<-rename(prey,cluster = sal)
@@ -57,6 +60,7 @@ survfit2(Surv(Eaten_day,outcome) ~ Rx+cluster, data = prey) %>%
 
 #same as above but using frailty model form
 (coxmod.frail<-coxph(Surv(Eaten_day,outcome) ~ Rx + frailty(cluster), data = prey))
+gof(coxmod.frail)
 summary(coxmod.frail) #exp(coef) is the Hazard Ratio for a covariate
 #########################
 #3. Plot survival curve by treatment
@@ -178,6 +182,7 @@ survfit2(Surv(Eaten_day,outcome) ~ Rx+cluster, data = prey) %>%
 #same as above but using frailty model form
 (coxmod.frail<-coxph(Surv(Eaten_day,outcome) ~ Rx + frailty(cluster), data = prey))
 summary(coxmod.frail) #exp(coef) is the Hazard Ratio for a covariate
+gof(coxmod.frail)
 #########################
 #3. Plot survival curve by treatment
 #########################
@@ -238,6 +243,7 @@ survfit2(Surv(Eaten_day,outcome) ~ Rx+cluster, data = prey) %>%
 #same as above but using frailty model form
 (coxmod.frail<-coxph(Surv(Eaten_day,outcome) ~ Rx + frailty(cluster), data = prey))
 summary(coxmod.frail) #exp(coef) is the Hazard Ratio for a covariate
+gof(coxmod.frail,4)
 #########################
 #3. Plot survival curve by treatment
 #########################
